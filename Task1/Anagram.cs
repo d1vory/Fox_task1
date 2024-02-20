@@ -4,14 +4,32 @@ namespace Task1;
 
 public class Anagram
 {
-    public static string ReverseWord(string word)
+    public static string Reverse(string input)
     {
-        if (string.IsNullOrEmpty(word))
+        if (input == null) throw new ArgumentNullException(nameof(input));
+        if (input.Length == 0) return input;
+
+        StringBuilder result = new StringBuilder();
+        List<StringBuilder> words = SplitWords(input);
+        foreach (StringBuilder word in words)
         {
-            throw new ArgumentNullException(nameof(word));
+            string reversedWord = ReverseWord(word.ToString());
+            result.Append(reversedWord);
         }
+
+        return result.ToString();
+    }
+
+    private static string ReverseWord(string word)
+    {
+        if (String.IsNullOrWhiteSpace(word))
+        {
+            return word;
+        }
+
         StringBuilder resultWord = new StringBuilder();
         Dictionary<int, char> nonLetterIndices = new Dictionary<int, char>();
+
         for (int i = 0; i < word.Length; i++)
         {
             char ch = word[i];
@@ -28,23 +46,53 @@ public class Anagram
         {
             resultWord.Insert(item.Key, item.Value);
         }
+
         return resultWord.ToString();
     }
 
-    public static string Reverse(string input)
+    
+    private static List<StringBuilder> SplitWords(string input)
     {
-        if (string.IsNullOrEmpty(input))
+        List<StringBuilder> splittedWords = new List<StringBuilder>();
+
+        for (int i = 0; i < input.Length; i++)
         {
-            throw new ArgumentNullException(nameof(input));
+            char ch = input[i];
+            if (splittedWords.Count == 0)
+            {
+                splittedWords.Add(new StringBuilder(ch.ToString()));
+                continue;
+            }
+
+            StringBuilder currentWord = splittedWords[splittedWords.Count-1];
+            bool isCurrentWordSpaces = currentWord[0] == ' ';
+
+            if (ch == ' ')
+            {
+                if (isCurrentWordSpaces)
+                {
+                    currentWord.Append(ch);
+                }
+                else
+                {
+                    splittedWords.Add(new StringBuilder(ch.ToString()));
+                }
+            }
+            else
+            {
+                if (isCurrentWordSpaces)
+                {
+                    splittedWords.Add(new StringBuilder(ch.ToString()));
+                }
+                else
+                {
+                    currentWord.Append(ch);
+                }
+            }
         }
 
-        StringBuilder result = new StringBuilder(input);
-        string [] words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        foreach (string word in words)
-        {
-            string reversedWord = ReverseWord(word);
-            result.Replace(word, reversedWord);
-        }
-        return result.ToString();
+        return splittedWords;
     }
+
+
 }

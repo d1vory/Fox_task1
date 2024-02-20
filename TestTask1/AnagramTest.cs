@@ -7,28 +7,26 @@ namespace TestTask1
     public class AnagramTest
     {
         [TestMethod]
-        public void TestReverseWord()
-        {
-            string[] initialWords = { "abcde", "efg!h", "a1bcd", "qw423yre", "!@#$%^"};
-            string[] reversedWords = {"edcba", "hgf!e", "d1cba", "er423ywq", "!@#$%^"};
-            for (int i = 0; i < initialWords.Length; i++)
-            {
-                string word = initialWords[i];
-                string expectedWord = reversedWords[i];
-                string actualWord = Anagram.ReverseWord(word);
-                Assert.AreEqual(expectedWord, actualWord);
-            }
-
-            Assert.ThrowsException<System.ArgumentNullException>(() => Anagram.ReverseWord(""));
-            Assert.ThrowsException<System.ArgumentNullException>(() => Anagram.ReverseWord(null));
-
-        }
-
-        [TestMethod]
         public void TestReverse()
         {
-            string[] initialInput = { "a1bcd efg!h", "  a1bcd    efg!h", "             ", "   abc       qwd1e     "};
-            string[] reversedInput = { "d1cba hgf!e", "  d1cba    hgf!e", "             ", "   cba       edw1q     " };
+            string[] initialInput = { 
+                "",
+                "a1bcd efg!h",
+                "  a1bcd    efg!h",
+                "             ",
+                "   abc       qwd1e     ",
+                "!@#$%^  ",
+                "word otherword planet" 
+            };
+            string[] reversedInput = {
+                "", 
+                "d1cba hgf!e",
+                "  d1cba    hgf!e",
+                "             ",
+                "   cba       edw1q     ",
+                "!@#$%^  ",
+                "drow drowrehto tenalp" 
+            };
             for (int i = 0; i < initialInput.Length; i++)
             {
                 string input = initialInput[i];
@@ -37,8 +35,7 @@ namespace TestTask1
                 Assert.AreEqual(expectedString, actualString);
             }
 
-            Assert.ThrowsException<System.ArgumentNullException>(() => Anagram.ReverseWord(""));
-            Assert.ThrowsException<System.ArgumentNullException>(() => Anagram.ReverseWord(null));
+            Assert.ThrowsException<System.ArgumentNullException>(() => Anagram.Reverse(null));
 
         }
     }

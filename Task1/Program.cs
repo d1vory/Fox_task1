@@ -6,6 +6,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine(Anagram.Reverse("           a1bcd          efg!h"));
+        Console.WriteLine("Enter a string: ");
+        string userInput = Console.ReadLine();
+        Console.WriteLine(Anagram.Reverse(userInput));
     }
 }
