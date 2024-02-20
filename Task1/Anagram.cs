@@ -6,7 +6,10 @@ public class Anagram
 {
     public static string ReverseWord(string word)
     {
-        if (word.Length == 0) return word;
+        if (string.IsNullOrEmpty(word))
+        {
+            throw new ArgumentNullException(nameof(word));
+        }
         StringBuilder resultWord = new StringBuilder();
         Dictionary<int, char> nonLetterIndices = new Dictionary<int, char>();
         for (int i = 0; i < word.Length; i++)
@@ -30,6 +33,11 @@ public class Anagram
 
     public static string Reverse(string input)
     {
+        if (string.IsNullOrEmpty(input))
+        {
+            throw new ArgumentNullException(nameof(input));
+        }
+
         StringBuilder result = new StringBuilder(input);
         string [] words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         foreach (string word in words)
